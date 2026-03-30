@@ -51,7 +51,9 @@ function App() {
         if (fetchError?.code === 'PGRST116') {
            throw new Error('User ID not found. Please check your ID in the app profile.');
         }
-        throw new Error('Verification failed. Please ensure you have an active internet connection.');
+        // Show the actual message to help the user understand if it's a permission issue
+        const msg = fetchError?.message || 'Verification failed. Please check your internet connection.';
+        throw new Error(msg);
       }
 
       setUserProfile(data);
