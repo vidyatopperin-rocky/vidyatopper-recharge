@@ -48,7 +48,10 @@ function App() {
         .single();
 
       if (fetchError || !data) {
-        throw new Error('User not found. Please check your ID in the app.');
+        if (fetchError?.code === 'PGRST116') {
+           throw new Error('User ID not found. Please check your ID in the app profile.');
+        }
+        throw new Error('Verification failed. Please ensure you have an active internet connection.');
       }
 
       setUserProfile(data);
